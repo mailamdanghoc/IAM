@@ -1,15 +1,20 @@
 const express = require('express');
 
-const cartController = require('../controllers/cart.controller');
+const userController = require('../controllers/user.controller');
 
 const router = express.Router();
 
-router.get('/self')
+router.get('/profile', userController.getProfile);
 
-router.get('/', cartController.getCart);
+router.get('/groupinfo', userController.getAllUserHaveSameGroup);
 
-router.post('/items', cartController.addCartItem);
+router.post('/modifygroup',userController.pendingForAddToGroup);
 
-router.patch('/items', cartController.updateCartItem);
+router.get('/modifygroup',userController.getGroupUserNotBelongTo)
+
+router.post('/leavegroup', userController.deleteFromGroup);
+router.get('/leavegroup', userController.getGroupUserBelongTo)
+
+router.post('/deleteAccount', userController.deleteAccount);
 
 module.exports = router;

@@ -2,28 +2,25 @@ const ldap = require('../config/ldap');
 const db = require('../config/mongodb');
 const getRole = require('../ulti/getRole');
 const validateUserInput = require('../ulti/validation');
+const authUlti = require('../ulti/authenticate');
+const authModel = require('../models/auth.model')
+const userModel = require('../models/user.model')
 
 async function login(req, res) {
     try {
-        const { email, password } = req.body;
+        const { mail, password } = req.body;
+        const uid = mail.split('@')[0];
+        const checkAuth = await authModel.checkAuth(uid,password);
 
-        // Connect to LDAP server
-        const client = await ldap.connectToLDAPServer((err,client)=>{
-            // Construct the user's DN
-            const objectDN = `uid=${email.split('@')[0]},ou=people,dc=example,dc=com`;
+        if (!checkAuth){
+            res.status(400).json({ status: 400, message: 'Invalid credentials' });
+        }
 
-            // Attempt to bind with the user's DN and password
-            client.bind(objectDN, password, (err) => {
-                if (err) {
-                    console.error('LDAP bind error:', err);
-                    res.status(400).json({ status: 400, message: 'Invalid credentials' });
-                } else {
-                    console.log('LDAP bind successful');
-                    res.status(200).json({ status: 200, message: 'Login successful' });
-                }
-            });
-        });
+        const isAdmin = await userModel.checkUserInGroup(uid,'Administrator');
 
+        authUlti.createUserSession(req,{uid: uid, isAdmin: isAdmin}, () => {
+            res.status(200).json({ status: 200, message: 'Login successful', isAdmin: isAdmin });
+        })
         
     } catch (err) {
         console.error('LDAP connection error:', err);
@@ -45,7 +42,7 @@ async function register(req,res){
     const userData = {
         email: req.body.email,
         password: req.body.password,
-        confirmPass: req.body.confirmPassword,
+        confirmPass: req.body.confirmPass,
         phoneNumber: req.body.phoneNumber,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -57,15 +54,30 @@ async function register(req,res){
         res.status(400).json({status: 400, message: message})
     }
     else{
-        await db.getDb().collection('register').insertOne(userData)
+
+        const userParser = {
+            uid: userData.email.split('@')[0],
+            mail: userData.email,
+            cn: userData.firstName,
+            sn: userData.lastName,
+            telephoneNumber: userData.phoneNumber,
+            roles: userData.roles,
+            userPassword: userData.password,
+        }
+
+        await userModel.pendingUser(userParser,'new-user')
+        res.status(200).json({status: 200, message: 'Your register need to be approved by administrator'})
     }
+}
 
-
-
+function logout(req, res) {
+    authUlti.destroyUserAuthSession(req);
+    res.status(200).json({status: 200, message: 'user logout successfully'})    
 }
 
 module.exports = {
     login: login,
     getRegister: getRegister,
     register: register,
+    logout: logout,
 };

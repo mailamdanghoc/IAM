@@ -1,5 +1,6 @@
 const ldapjs = require('ldapjs')
 const ldap = require('../config/ldap');
+const db = require('../config/mongodb')
 
 function getAllUser() {
     return new Promise((resolve, reject) => {
@@ -195,6 +196,58 @@ async function getAllUserOfGroup(groupname) {
     });
 }
 
+async function pendingUser(userData, collectionName){
+    if (collectionName) collectionName = 'new-users';
+    const user = {
+        uid: userData.uid,
+        mail: userData.mail,
+        cn: userData.cn,
+        sn: userData.sn,
+        telephoneNumber: userData.telephoneNumber,
+        userPassword: userData.userPassword,
+        groups: userData.groups,
+    }
+
+    await db.getDb().collection(collectionName).insertOne(user);
+}
+
+async function deletePendingUSer(uid, collectionName){
+    if (collectionName) collectionName = 'new-users';
+    await db.getDb().collection(collectionName).deleteOne({uid: uid});
+}
+
+async function getAllPendingUser(collectionName){
+    if (collectionName) collectionName = 'new-users';
+    const newUsers = await db.getDb().collection(collectionName).find().toArray();
+
+    return newUsers.map((userData)=>{
+        return {
+            uid: userData.uid,
+            mail: userData.mail,
+            cn: userData.cn,
+            sn: userData.sn,
+            telephoneNumber: userData.telephoneNumber,
+            userPassword: userData.userPassword,
+            groups: userData.groups,
+        };
+    });
+}
+
+async function getPendingUser(uid, collectionName){
+    if (collectionName) collectionName = 'new-users';
+    const userData = await db.getDb().collection(collectionName).findOne({uid: uid});
+
+    return {
+        uid: userData.uid,
+        mail: userData.mail,
+        cn: userData.cn,
+        sn: userData.sn,
+        telephoneNumber: userData.telephoneNumber,
+        userPassword: userData.userPassword,
+        groups: userData.groups,
+    }
+}
+
 
 function registerUser(userData){
     return new Promise((resolve, reject) => {
@@ -323,6 +376,10 @@ function deleteRole(roleName){
     });
 }
 
+function pendingAddRole(user){
+
+}
+
 
 async function test(){
 
@@ -361,8 +418,19 @@ module.exports = {
     getUser: getUser,
     getGroupOfUser: getGroupOfUser,
     getAllUserOfGroup: getAllUserOfGroup,
+    
+    pendingUser: pendingUser,
+    deletePendingUSer: deletePendingUSer,
+    getAllPendingUser: getAllPendingUser,
+    getPendingUser: getPendingUser,
+
+
     registerUser: registerUser,
     deleteUser: deleteUser,
     addUserToGroup: addUserToGroup,
-    deleteUserFromGroup: deleteUserFromGroup
+    deleteUserFromGroup: deleteUserFromGroup,
+
+
+    addRole: addRole,
+    deleteRole: deleteRole,
 };
