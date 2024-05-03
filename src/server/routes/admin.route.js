@@ -28,5 +28,9 @@ router.post('/createNewGroup',adminController.createNewGroup)
 
 router.post('/deleteGroup',adminController.deleteGroup)
 
+router.get('/getlog',adminController.getLog)
+
+router.post('/deletelog',adminController.clearLog)
+
 
 module.exports = router;

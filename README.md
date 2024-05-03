@@ -15,4 +15,6 @@ https://directory.apache.org/studio/downloads.html
 To run server: cd src/server -> npm run server
 To run client: cd src/client -> npm start
 
+## create a file name ".env" in server folder, then create corresponding fields like in the .env.example file
+
 

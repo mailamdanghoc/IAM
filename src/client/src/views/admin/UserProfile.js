@@ -161,7 +161,7 @@ export default function UserProfile() {
           
 
 
-          <div>
+          {/* <div>
             <button
               onClick={() => setShowConfirmation(true)}
               className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
@@ -175,7 +175,7 @@ export default function UserProfile() {
                 onCancel={handleCancel}
               />
             )}
-          </div>
+          </div> */}
         </div>
 
       </div>

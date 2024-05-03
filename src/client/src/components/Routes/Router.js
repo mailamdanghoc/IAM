@@ -3,6 +3,7 @@ import { useRoutes } from "react-router-dom";
 //begin UserLayout layout
 import UserLayout from "../Layout/UserLayout";
 import Login from "../../views/user/Login";
+import OTP from "../../views/user/OTP";
 import SignUp from "../../views/user/Signup"
 import Info from "../../views/user/Info";
 import AddRoleForm from "../../views/user/AddRoleForm";
@@ -18,6 +19,7 @@ import GroupManagement from "../../views/admin/GroupManagement";
 import UserProfile from "../../views/admin/UserProfile";
 import AddRoleForUSer from "../../views/admin/AddUserToGroup";
 import RemoveUserFromGroup from "../../views/admin/RemoveUserFromGroup";
+import LogViewer from "../../views/admin/LogViewer";
 //end UserLayout layout
 
 
@@ -36,6 +38,7 @@ export default function Router() {
       children: [
         {element: <Login />, index:true,},
         {path: 'login', element: <Login/>},
+        {path: 'verify-otp', element: <OTP/>},
         {path: 'signup', element: <SignUp/>},
         {path: 'profile', element: <Info/>},
         {path: 'profile/request-role', element: <AddRoleForm/>},
@@ -49,7 +52,7 @@ export default function Router() {
         {path: 'admin/manage-groups/detail/:uid', element: <UserProfile/>},
         {path: 'admin/manage-groups/detail/:uid/request-role', element: <AddRoleForUSer/>},
         {path: '/admin/manage-groups/detail/:uid/delete-role', element: <RemoveUserFromGroup/>},
-        {path: 'admin/log', element: <RequestManagement/>},
+        {path: 'admin/manage-log', element: <LogViewer/>},
 
       ]
     },

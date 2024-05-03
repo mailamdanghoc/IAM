@@ -30,13 +30,8 @@ const Login = () => {
           });
     
           if (response.status >=200 && response.status<400) {
-              const cookies = new Cookies();
-              cookies.set('isAuth', true, { path: '/' });
-              cookies.set('isAdmin', response.data.isAdmin, { path: '/' });
-              console.log("User login successfully");
               setErr('');
-              window.location.href = "http://localhost:3000/profile"
-            
+              window.location.href = "http://localhost:3000/verify-otp"
           }
         } catch (error) {
           console.error("Failed to login user:", error);
