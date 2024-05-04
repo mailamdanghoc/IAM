@@ -1,0 +1,54 @@
+version: 1
+
+dn: cn=Accountant,ou=group,dc=example,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: Accountant
+member: uid=example,ou=people,dc=example,dc=com
+
+dn: ou=group,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: group
+
+dn: cn=Manager,ou=group,dc=example,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: Manager
+member: uid=example,ou=people,dc=example,dc=com
+
+dn: ou=people,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: people
+
+dn: cn=Administrator,ou=group,dc=example,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: Administrator
+member: uid=example,ou=people,dc=example,dc=com
+
+dn: dc=example,dc=com
+objectclass: domain
+objectclass: top
+dc: example
+
+dn: uid=example,ou=people,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: exampleCN
+sn: exampleSN
+mail: example@gmail.com
+telephoneNumber: 1234567890
+uid: example
+userPassword:: e1NTSEF9alN0bEtvNHExaS9xdTFObmwyZkVuVjZsQzh3enJDcG5hbDFxbXc9P
+ Q==
+
+dn: cn=IT,ou=group,dc=example,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: IT
+member: uid=example,ou=people,dc=example,dc=com
+
