@@ -1,11 +1,11 @@
 function protectRoutes(req, res, next) {
-    // console.log(req.path)
     if (req.path.startsWith('/api/auth/logout') && !res.locals.isAuth){
         return res.status(400).json({status: 400, message: 'user must login to logout'});
     }
 
     if (req.path.startsWith('/api/auth') && !req.path.startsWith('/api/auth/logout') && res.locals.isAuth){
-        return res.status(300).json({status: 300, message: 'User has already logined'});
+        
+        return res.status(400).json({status: 400, message: 'User has already logined'});
     }
 
     if (!req.path.startsWith('/api/auth') && !res.locals.isAuth) {

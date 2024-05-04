@@ -20,7 +20,6 @@ async function handleRegisterRequest(req,res){
     const logger = log.createLogger('./logs/account.log')
     const accept = req.body.accept;
     const uid = req.body.uid;
-    console.log(accept)
 
     const user = await userModel.getPendingUser(uid,'new-user');
     await userModel.deletePendingUSer(uid,'new-user');

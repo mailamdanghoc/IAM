@@ -112,7 +112,7 @@ async function getRegister(req,res){
 }
 
 async function register(req,res){
-    const logger = log.createLogger('./logs/authentication.log')
+    const logger = log.createLogger('./logs/account.log')
     const userData = {
         email: req.body.email,
         password: req.body.password,

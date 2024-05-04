@@ -16,9 +16,9 @@ export default function UserLayout() {
   }, []);
 
   return (
-    <div className="container mx-auto max-w-4xl mb-16">
+    <div className="">
       <Header isAuth={isAuth} isAdmin={isAdmin}/>
-      <div className="flex-grow flex">
+      <div className="">
         <Outlet/>
       </div>
     </div>

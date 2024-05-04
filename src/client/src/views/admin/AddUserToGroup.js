@@ -66,6 +66,7 @@ const AddRoleForUSer = () => {
       const response = await axios.post('http://localhost:9000/api/admin/addUserToGroup',{
         uid: uid,
         groups: roles,
+        description: description,
       },{
           withCredentials: true,
           headers: {

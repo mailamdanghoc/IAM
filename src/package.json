@@ -1,0 +1,9 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "server": "cd server && npm run server",
+    "client": "cd client && npm start"
+  }
+}

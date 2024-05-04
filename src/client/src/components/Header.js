@@ -40,12 +40,13 @@ const Header = ({ isAuth, isAdmin }) => {
 
   return (
     <header style={customStyle.header} className="border-b">
-      <nav className="flex justify-end mb-2">
-        <ul className="flex">
-          {/* If user is authenticated */}
+      <nav className="flex justify-between mb-2">
+        <div  style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>
+          Simple IAM
+        </div>
+        <ul className="flex justify-end mr-4">
           {isAuth ? (
             <>
-              {/* If user is admin */}
               {isAdmin ? (
                 <>
                   <li>
@@ -97,12 +98,12 @@ const Header = ({ isAuth, isAdmin }) => {
             (!isAuth) &&
             <>
               <li>
-                <button className="border-15 border-darkblue hover:bg-medium hover:text-white bg-white text-darkblue font-bold py-2 px-4 rounded addborder" style={customStyle.addBorder}>
+                <button className="border-15 border-darkblue hover:bg-medium bg-white text-darkblue font-bold py-2 px-4 rounded addborder" style={customStyle.addBorder}>
                   <Link to="/signup">Sign Up</Link>
                 </button>
               </li>
               <li>
-                <button className="border-15 border-darkblue hover:bg-medium hover:text-white bg-white text-darkblue font-bold py-2 px-4 rounded addborder" style={customStyle.addBorder}>
+                <button className="border-15 border-darkblue hover:bg-medium bg-white text-darkblue font-bold py-2 px-4 rounded addborder" style={customStyle.addBorder}>
                   <Link to="/login">Log In</Link>
                 </button>
               </li>

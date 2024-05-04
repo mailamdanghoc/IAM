@@ -68,7 +68,8 @@ const DeleteRoleForm = () => {
     }
     try {
       const response = await axios.post('http://localhost:9000/api/user/leavegroup',{
-        groups: roles
+        groups: roles,
+        description: description,
       },{
           withCredentials: true,
           headers: {

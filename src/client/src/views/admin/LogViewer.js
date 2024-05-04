@@ -34,7 +34,6 @@ const GetLog = ({filename}) => {
   };
 
   const handleDeleteLog = async () => {
-    return;
     try {
         const response = await axios.post(`http://localhost:9000/api/admin/deletelog`,{filename: filename},{
             withCredentials: true,
@@ -91,7 +90,7 @@ const LogViewer = () => {
   
     return (
       <div className="container  max-w-screen-xl mx-auto my-8">
-        <h1 className='text-4xl font-bold mb-8'>User Management</h1>
+        <h1 className='text-4xl font-bold mb-8'>Log Management</h1>
         <div className="flex space-x-4">
           {options.map((option) => (
             <button

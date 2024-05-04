@@ -150,14 +150,18 @@ export default function UserProfile() {
           </div>
         </div>
         <div>
-        <Link to={`/admin/manage-groups/detail/${uid}/request-role`}>
-          <div className="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >Add Role For User</div>
-        </Link>
-        <Link to={`/admin/manage-groups/detail/${uid}/delete-role`}>
-          <div className="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >Remove User Role</div>
-        </Link>
+          <div>
+            <button className="button px-4 py-2 mr-4 bg-blue-500 text-white rounded hover:bg-blue-600">
+              <Link to={`/admin/manage-groups/detail/${uid}/request-role`}>
+                Add Role For User
+              </Link>
+            </button>
+            <button className="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              <Link to={`/admin/manage-groups/detail/${uid}/delete-role`}>
+                Remove User Role
+              </Link>
+            </button>
+          </div>
           
 
 

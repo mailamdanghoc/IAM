@@ -2,6 +2,9 @@ const ldap = require('../config/ldap')
 const userModel = require('../models/user.model')
 const getRole = require('../ulti/getRole')
 const authUlti = require('../ulti/authenticate');
+const log = require('../config/log')
+const fs = require('fs')
+
 
 async function getProfile(req,res){
     const uid = res.locals.uid;
@@ -49,16 +52,19 @@ async function getAllUserHaveSameGroup(req, res){
 }
 
 async function deleteFromGroup(req,res){
+    const logger = log.createLogger('./logs/account.log')
     const uid = res.locals.uid;
     const groups = req.body.groups;
-    console.log(groups)
     groups.forEach(async (group) => {
         await userModel.deleteUserFromGroup(uid,group)
     })
+    logger.info(`${new Date()}: Delete role success: User ${res.locals.uid} left the following groups: ${user.groups.join(', ')}, IP: ${req.ip}`);
+
     return res.status(200).json({status: 200, message: "user have been removed from groups"})
 }
 
 async function pendingForAddToGroup(req,res){
+    const logger = log.createLogger('./logs/account.log')
     const uid = res.locals.uid;
     const groups = req.body.groups;
     const des = req.body.description
@@ -74,7 +80,7 @@ async function pendingForAddToGroup(req,res){
         roles: groups,
         description: des,
     }, 'update-user')
-
+    logger.info(`${new Date()}: Pending request for role success: User ${res.locals.uid} requested to join the following groups: ${user.groups.join(', ')}, IP: ${req.ip}`);
     return res.status(200).json({status: 200, message: "Request to modify group have been pending"});
 
 }   

@@ -148,18 +148,21 @@ export default function Info() {
             </ul>
           </div>
         </div>
-        <div>
-        <Link to="/profile/request-role">
-          <div className="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >Registry for more role</div>
-        </Link>
-        <Link to="/profile/delete-role">
-          <div className="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >Modify my role</div>
-        </Link>
-          
-
-
+        <div className="flex justify-between">
+          <div>
+            <button className="button px-4 py-2 mr-4 bg-blue-500 text-white rounded hover:bg-blue-600">
+              <Link to="/profile/request-role">
+              
+                Registry for more role
+              </Link>
+            </button>
+            <button className="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              <Link to="/profile/delete-role">
+                
+                Modify my role
+              </Link>
+            </button>
+          </div>
           <div>
             <button
               onClick={() => setShowConfirmation(true)}
@@ -175,6 +178,9 @@ export default function Info() {
               />
             )}
           </div>
+
+
+          
         </div>
 
       </div>

@@ -65,6 +65,7 @@ const RemoveUserFromGroup = () => {
       const response = await axios.post('http://localhost:9000/api/admin/deleteUserFromGroup',{
         uid: uid,
         groups: roles,
+        description: description,
       },{
           withCredentials: true,
           headers: {
