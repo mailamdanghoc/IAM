@@ -108,7 +108,6 @@ function getUser(uid){
     });
 }
 
-
 function getGroupOfUser(uid){
     return new Promise((resolve, reject) => {
         const roles = []
@@ -235,7 +234,6 @@ async function checkUserInGroup(uid,groupname){
     });
 }
 
-
 async function pendingUser(userData, collectionName){
     if (!collectionName) collectionName = 'new-user';
     const user = {
@@ -290,7 +288,6 @@ async function getPendingUser(uid, collectionName){
         description: userData.description
     }
 }
-
 
 function registerUser(userData){
     return new Promise((resolve, reject) => {
@@ -383,7 +380,6 @@ function deleteUserFromGroup(uid,groupname){
     })
 }
 
-
 function addRole(roleName,members){
     return new Promise((resolve, reject) => {
         const membersDN = []
@@ -409,7 +405,6 @@ function addRole(roleName,members){
     });
 }
 
-
 function deleteRole(roleName){
     return new Promise((resolve, reject) => {
         ldap.connectToLDAPServer((err, client) => {
@@ -424,43 +419,6 @@ function deleteRole(roleName){
         });
     });
 }
-
-
-async function test(){
-
-    // //test getUser(uid)
-    // const user = await getUser('admin1234')
-    // console.log(user)
-
-    // //test getGroupOfUser
-    // const roles = await getGroupOfUser('khanh.trankiwiee')
-    // console.log(roles)
-
-    // //test getAllUserOfGroup
-    // const users = await getAllUserOfGroup('Administrator')
-    // console.log(users)
-
-
-    //test checkUserInGroup
-    const res = await checkUserInGroup('khanh.trankiwi','Administrator')
-    console.log(res)
-
-    //test add role and delete role
-    //await addRole('IT')
-    //await deleteRole('IT')
-
-
-    //test deleteuserfromgroup, addusertogroup
-    // const data = ['Administrator', 'Manager']
-    // for (i in data){
-    //     await deleteUserFromGroup('admin123',data[i])
-    //     console.log(data[i])
-    // }
-    
-
-}
-
-// test()
 
 module.exports = {
     getAllUser: getAllUser,

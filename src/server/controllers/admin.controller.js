@@ -39,7 +39,6 @@ async function handleRegisterRequest(req,res){
 
 }
 
-
 async function handleUpdateRequest(req,res){
     const logger = log.createLogger('./logs/account.log')
     const accept = req.body.accept;
@@ -137,12 +136,10 @@ async function deleteUserFromGroup(req,res){
 
 }
 
-
 async function getAllNewUserForChooseUserForNewGroup(req,res){
     const users = await userModel.getAllUser();
     res.status(200).json({status: 200, data: {users: users}})
 }
-
 
 async function createNewGroup(req,res){
     const logger = log.createLogger('./logs/account.log')
@@ -160,7 +157,6 @@ async function deleteGroup(req, res){
     logger.info(`${new Date()}: Update group success: Admin ${res.locals.uid} deleted a group with name ${groups.join(', ')}, IP: ${req.ip}`)
     return res.status(200).json({status: 200, message: "handle admin request to remove group sucsessfully"});
 }
-
 
 async function getLog(req, res) {
     try {
@@ -199,9 +195,6 @@ async function clearLog(req, res) {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
-
-
-
 
 module.exports = {
     getPendingRegisterRequest: getPendingRegisterRequest,

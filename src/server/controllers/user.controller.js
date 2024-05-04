@@ -58,7 +58,7 @@ async function deleteFromGroup(req,res){
     groups.forEach(async (group) => {
         await userModel.deleteUserFromGroup(uid,group)
     })
-    logger.info(`${new Date()}: Delete role success: User ${res.locals.uid} left the following groups: ${user.groups.join(', ')}, IP: ${req.ip}`);
+    logger.info(`${new Date()}: Delete role success: User ${res.locals.uid} left the following groups: ${groups.join(', ')}, IP: ${req.ip}`);
 
     return res.status(200).json({status: 200, message: "user have been removed from groups"})
 }
@@ -80,11 +80,10 @@ async function pendingForAddToGroup(req,res){
         roles: groups,
         description: des,
     }, 'update-user')
-    logger.info(`${new Date()}: Pending request for role success: User ${res.locals.uid} requested to join the following groups: ${user.groups.join(', ')}, IP: ${req.ip}`);
+    logger.info(`${new Date()}: Pending request for role success: User ${res.locals.uid} requested to join the following groups: ${groups.join(', ')}, IP: ${req.ip}`);
     return res.status(200).json({status: 200, message: "Request to modify group have been pending"});
 
 }   
-
 
 async function getGroupUserNotBelongTo(req,res){
     const uid = res.locals.uid;
@@ -104,8 +103,14 @@ async function getGroupUserBelongTo(req,res){
 }
 
 async function deleteAccount(req,res){
+    const logger = log.createLogger('./logs/account.log')
     const uid = res.locals.uid;
+    const userGroup = await userModel.getGroupOfUser(uid);
+    for (const group of userGroup){
+        await userModel.deleteUserFromGroup(uid,group);
+    }
     await userModel.deleteUser(uid);
+    logger.info(`${new Date()}: Account Deleted: User ${uid} requested to delete self-account, group user used to belong to: ${userGroup.join(', ')}, IP: ${req.ip}`);
     authUlti.destroyUserAuthSession(req);
     return res.status(200).json({status: 200, message: "User account has been deleted"});
 }

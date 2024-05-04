@@ -6,6 +6,7 @@ function createUserSession(req, user, action) {
 } 
 
 function destroyUserAuthSession(req) {
+    req.session.isAuth = null;
     req.session.uid = null;
     req.session.isAdmin = null;
 }

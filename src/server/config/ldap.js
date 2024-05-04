@@ -1,11 +1,10 @@
 const ldap = require('ldapjs');
+require('dotenv').config()
 
 const ldapConfig = {
-    url: 'ldap://127.0.0.1:10389', // LDAP server URL
-    bindDN: 'uid=admin,ou=system', // Bind DN (username)
-    bindCredentials: '123456', // Bind credentials (password)
-    searchBase: 'dc=example,dc=com', // Base DN for user search
-   
+    url: process.env.LDAP_URI , // LDAP server URL
+    bindDN: process.env.BIND_DN, // Bind DN (username)
+    bindCredentials: process.env.BIND_CREDENTIALS, // Bind credentials (password)   
 };
 
 function connectToLDAPServer(callback) {
@@ -23,6 +22,8 @@ function connectToLDAPServer(callback) {
         }
     });
 }
+
+connectToLDAPServer()
 
 module.exports = {
     connectToLDAPServer: connectToLDAPServer

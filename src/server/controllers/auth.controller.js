@@ -37,8 +37,6 @@ async function sendOTP(email, otp) {
     console.log('Message sent: %s', info.messageId);
 }
 
-
-
 async function login(req, res) {
     try {
         const logger = log.createLogger('./logs/authentication.log')
@@ -72,7 +70,6 @@ async function login(req, res) {
     }
 }
 
-
 async function verifyOtp(req,res){
     const logger = log.createLogger('./logs/authentication.log')
     const otp = req.body.otp; // Assuming OTP is sent in the request body
@@ -99,7 +96,6 @@ async function verifyOtp(req,res){
         res.status(400).json({message: 'Invalid OTP. Please try again.'});
     }
 }
-
 
 async function getRegister(req,res){
     try {
@@ -151,9 +147,6 @@ function logout(req, res) {
     authUlti.destroyUserAuthSession(req);
     res.status(200).json({status: 200, message: 'user logout successfully'})    
 }
-
-
-
 
 module.exports = {
     login: login,

@@ -27,7 +27,6 @@ function checkAuth(uid, password){
     });
 }
 
-
 module.exports = {
     checkAuth: checkAuth,
 }

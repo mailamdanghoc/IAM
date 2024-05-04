@@ -43,20 +43,4 @@ function getRole() {
     });
 }
 
-
-function addRole(roleName){
-    
-}
-
-
-function deleteRole(){
-
-}
-
-// async function main() {
-//     var roles = await getRole();
-//     console.log("1234")
-//     console.log(roles);
-// }
-
 module.exports = getRole;
